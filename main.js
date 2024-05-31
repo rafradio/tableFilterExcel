@@ -5,6 +5,8 @@ let buttonCities = document.getElementById("add-cities");
 let citiName = document.getElementById("citi");
 let listOfCities = document.getElementById("citi-List");
 
+const clone = citiName.cloneNode(true);
+document.body.appendChild(clone);
 let res = Array.from(tHeaders).filter((el) => el.innerHTML == "Город");
 console.log("Длина - ", res[0].cellIndex);
 let cities =[];
@@ -55,7 +57,7 @@ let tableToExcel = (function() {
         if (!table.nodeType) table = document.getElementById(table);
         let ctx = { worksheet: name || 'Worksheet', table: table.innerHTML };
         // window.location.href = uri + base64(format(template, ctx));
-        var link = document.createElement('a');
+        let link = document.createElement('a');
         link.setAttribute('href', uri + base64(format(template, ctx)));
         link.setAttribute('download', 'data.xls');
         link.click();
