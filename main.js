@@ -57,7 +57,8 @@ let tableToExcel = (function() {
         // window.location.href = uri + base64(format(template, ctx));
         var link = document.createElement('a');
         link.setAttribute('href', uri + base64(format(template, ctx)));
-        link.setAttribute('download', 'filename.xls');
+        link.setAttribute('download', 'data.xls');
         link.click();
+        URL.revokeObjectURL(link.href);
     }
   })()
