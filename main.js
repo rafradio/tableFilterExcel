@@ -1,12 +1,40 @@
 let myTable = document.getElementById("myTable");
 let tHeaders = myTable.getElementsByTagName('th');
-let btn = document.getElementById("cities");
-let buttonCities = document.getElementById("add-cities");
+
+
 let citiName = document.getElementById("citi");
-let listOfCities = document.getElementById("citi-List");
+// let listOfCities = document.getElementById("citi-List");
 
 const clone = citiName.cloneNode(true);
-document.body.appendChild(clone);
+clone.id = "newCiti";
+// document.body.appendChild(clone);
+
+let divsElements = document.getElementsByTagName('div');
+let indexDiv = findDivFilter(divsElements);
+let nameOfFilter = document.createElement('p');
+nameOfFilter.innerHTML = "Расширенный поиск";
+divsElements[indexDiv].appendChild(nameOfFilter);
+divsElements[indexDiv].appendChild(clone);
+let listOfFilter = document.createElement('select');
+listOfFilter.id = "citi-List";
+listOfFilter.setAttribute("class", "multiple");
+listOfFilter.setAttribute("size", "8");
+divsElements[indexDiv].appendChild(listOfFilter);
+let btn1OfFilter = document.createElement('button');
+btn1OfFilter.setAttribute("class", "btn-style");
+btn1OfFilter.id = "add-cities";
+btn1OfFilter.innerHTML = "Добавить город";
+divsElements[indexDiv].appendChild(btn1OfFilter);
+let btn2OfFilter = document.createElement('button');
+btn2OfFilter.setAttribute("class", "btn-style");
+btn2OfFilter.id = "cities";
+btn2OfFilter.innerHTML = "Город";
+divsElements[indexDiv].appendChild(btn2OfFilter);
+
+let buttonCities = document.getElementById("add-cities");
+let btn = document.getElementById("cities");
+
+
 let res = Array.from(tHeaders).filter((el) => el.innerHTML == "Город");
 console.log("Длина - ", res[0].cellIndex);
 let cities =[];
@@ -27,6 +55,7 @@ cities.forEach((element, index) => {
 });
 
 btn.onclick = function chooseCities() {
+    let listOfCities = document.getElementById("citi-List");
     let citiNames = [...listOfCities.options].map(o => o.text);
     let filter = [...new Set(citiNames)];
     let result = Array.from(tHeaders).filter((el) => el.innerHTML == this.innerHTML);
@@ -40,11 +69,17 @@ btn.onclick = function chooseCities() {
         }
         
     });
+
+    for (i = listOfCities.options.length-1; i >= 0;i--) {
+        listOfCities.remove(i);
+    }
 }
 
 buttonCities.onclick = function() {
+    let listOfCities = document.getElementById("citi-List");
+    let citiNameMew = document.getElementById("newCiti");
     let option = document.createElement("option");
-    option.text = citiName.value;
+    option.text = citiNameMew.value;
     listOfCities.add(option);
 }
 
@@ -64,3 +99,16 @@ let tableToExcel = (function() {
         URL.revokeObjectURL(link.href);
     }
   })()
+
+function findDivFilter(tags) {
+    let i = -1;
+    Array.from(tags).forEach((el, index) => {
+        let rez = Array.from(el.childNodes).filter(el => {
+            let str = el.innerHTML;
+            if (el.innerHTML) return str.includes("Фильтр")
+            else return false
+        });
+        if (rez.length > 0) i = index;
+    });
+    return i;
+}
