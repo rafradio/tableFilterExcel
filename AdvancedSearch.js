@@ -14,6 +14,15 @@ function createElements() {
 
     let divsElements = document.getElementsByTagName('div');
     let indexDiv = findDivFilter(divsElements);
+
+    const createButton = (idName, btnText) => {
+        let btnCreating = document.createElement('button');
+        btnCreating.setAttribute("class", "btn-style");
+        btnCreating.id = idName;
+        btnCreating.innerHTML = btnText;
+        divsElements[indexDiv].appendChild(btnCreating); 
+    }
+    
     let nameOfFilter = document.createElement('p');
     nameOfFilter.innerHTML = "<b>Расширенный поиск</b>";
     divsElements[indexDiv].appendChild(nameOfFilter);
@@ -23,16 +32,9 @@ function createElements() {
     listOfFilter.setAttribute("class", "multiple");
     listOfFilter.setAttribute("size", "8");
     divsElements[indexDiv].appendChild(listOfFilter);
-    let btn1OfFilter = document.createElement('button');
-    btn1OfFilter.setAttribute("class", "btn-style");
-    btn1OfFilter.id = "add-cities";
-    btn1OfFilter.innerHTML = "Добавить город";
-    divsElements[indexDiv].appendChild(btn1OfFilter);
-    let btn2OfFilter = document.createElement('button');
-    btn2OfFilter.setAttribute("class", "btn-style");
-    btn2OfFilter.id = "cities";
-    btn2OfFilter.innerHTML = "Город";
-    divsElements[indexDiv].appendChild(btn2OfFilter);
+    createButton("add-cities", "Добавить город");
+    createButton("cities", "Город");
+    createButton("clear", "Очистить");
 }
 
 
