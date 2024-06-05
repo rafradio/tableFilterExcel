@@ -6,7 +6,7 @@ window.addEventListener('load', function () {
     let myTable = document.getElementById("main_list");
     let tHeaders = myTable.getElementsByTagName('th');
     let tCells = myTable.getElementsByTagName('td');
-    console.log(tCells.length);
+    
 
     // let listOfCities = document.getElementById("citi-List");
     createElements();
@@ -23,9 +23,9 @@ window.addEventListener('load', function () {
         const createCloneFromTable = (nameField, newId) => {
 
             let result = Array.from(tHeaders).filter((el) => el.childNodes[0].textContent.includes(nameField));
-            let tag = result[0].getElementsByTagName('select');
-            console.log(tag);
-            console.log(tag.length);
+            let tr = myTable.getElementsByTagName("tr");
+            console.log(tCells[10]);
+            console.log(tr.length);
             console.log(tag[0]);
             let clone = tag[0].cloneNode(true);
             clone.id = newId;
@@ -58,10 +58,10 @@ window.addEventListener('load', function () {
         createButton("add-cities", "Добавить город");
         divsElements[indexDiv].appendChild(createClone("magnit_reg", "newRegion"));
         createButton("add-regions", "Добавить регион");
-        if (tCells.length != 0) {
-            divsElements[indexDiv].appendChild(createCloneFromTable("ФИО Координатора", "newCoor"));
-            createButton("add-coord", "ФИО Координатора");
-        }
+//        if (tCells.length != 0) {
+//            divsElements[indexDiv].appendChild(createCloneFromTable("ФИО Координатора", "newCoor"));
+//            createButton("add-coord", "ФИО Координатора");
+//        }
 
         let listOfFilter = document.createElement('select');
         listOfFilter.id = "citi-List";
